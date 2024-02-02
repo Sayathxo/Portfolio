@@ -1,7 +1,7 @@
 package adventOfCode;
 /*
-Zadání:
-On each line, the calibration value can be found by combining the first digit and the last digit (in that order)
+Day 1:
+...On each line, the calibration value can be found by combining the first digit and the last digit (in that order)
 to form a single two-digit number.
     For example:
     1abc2
@@ -1020,23 +1020,23 @@ public class FirstQuest {
 
 
         String[] lines = text.split("\n");
-        String cisla = "0123456789";
+        String numbers = "0123456789";
         int sum = 0;
 
         for (String line : lines) {
-            StringBuilder cislaZRadku = new StringBuilder();
+            StringBuilder numbersFromRow = new StringBuilder();
 
             for (char c : line.toCharArray()) {
-                if (cisla.contains(String.valueOf(c))) {
-                    cislaZRadku.append(c);
+                if (numbers.contains(String.valueOf(c))) {
+                    numbersFromRow.append(c);
                 }
             }
-            sum += Integer.parseInt("" + cislaZRadku.charAt(0) + cislaZRadku.charAt(cislaZRadku.length()-1));
+            sum += Integer.parseInt("" + numbersFromRow.charAt(0) + numbersFromRow.charAt(numbersFromRow.length()-1));
         }
-        System.out.println("Součet: " + sum);
+        System.out.println("The sum of all the calibration values is " + sum + ".");  //the correct result is 55816
     }
 }
 
 
-//výsledek 55816 souhlasí
+
 
