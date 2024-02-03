@@ -1,4 +1,7 @@
 package adventOfCode;
+
+import java.util.Arrays;
+
 /*
 Second Quest:
 ...Each game is listed with its ID number (like the 11 in Game 11: ...) followed by a semicolon-separated list of subsets of cubes that were revealed from the bag (like 3 red, 5 green, 4 blue).
@@ -130,39 +133,48 @@ public class SecondQuest {
             String[] splitGame = game.split(":");
             int numberOfGame = Integer.parseInt(splitGame[0].replace("Game ", ""));
 
-            String[] secondPartOfSentence = splitGame[1].trim().split(";");
+            String[] secondPartOfSentence = splitGame[1].split(";");
 
             int red = 0;
             int blue = 0;
             int green = 0;
+            int valid = 1;
+
 
             for (String parts : secondPartOfSentence) {
+
                 if (parts.contains("red")) {
-                    red += Integer.parseInt(parts.substring((parts.indexOf("red") - 3), (parts.indexOf("red") - 1)).trim());
+                    red = Integer.parseInt(parts.substring((parts.indexOf("red") - 3), (parts.indexOf("red") - 1)).trim());
                 }else{
                     red=0;
                 }
-                System.out.println(red);
+
                 if (parts.contains("blue")) {
-                    blue += Integer.parseInt(parts.substring((parts.indexOf("blue") - 3), (parts.indexOf("blue") - 1)).trim());
+                    blue = Integer.parseInt(parts.substring((parts.indexOf("blue") - 3), (parts.indexOf("blue") - 1)).trim());
                 }else{
                     blue=0;
                 }
-                System.out.println(blue);
+
                 if (parts.contains("green")) {
-                    green += Integer.parseInt(parts.substring((parts.indexOf("green") - 3), (parts.indexOf("green") - 1)).trim());
+                    green = Integer.parseInt(parts.substring((parts.indexOf("green") - 3), (parts.indexOf("green") - 1)).trim());
                 }else{
                     green=0;
                 }
-                System.out.println(green);
+
+                if (red > 12 || blue > 14 || green > 13) {
+                    valid = 0;
+                }
+
+            }
+            if (valid == 1) {
+                posibleGames += numberOfGame;
+                System.out.println(numberOfGame);
+                System.out.println(posibleGames);
             }
         }
-      /*      if (red <= 12 && blue <= 14 && green <= 13) {
-                System.out.println("Hra " + numberOfGame);
-                posibleGames += numberOfGame;
-            }
+
 
         System.out.println(posibleGames);
-        */
+
     }
 }
