@@ -1,7 +1,4 @@
 package adventOfCode;
-
-import java.util.Arrays;
-
 /*
 Second Quest:
 ...Each game is listed with its ID number (like the 11 in Game 11: ...) followed by a semicolon-separated list of subsets of cubes that were revealed from the bag (like 3 red, 5 green, 4 blue).
@@ -22,7 +19,17 @@ In the example above, games 1, 2, and 5 would have been possible if the bag had 
 Determine which games would have been possible if the bag had been loaded with only 12 red cubes, 13 green cubes, and 14 blue cubes. What is the sum of the IDs of those games?
  */
 public class SecondQuest {
+    //metoda pro zjištění čísla u dané barvy
+    private static int getColorCount(String parts, String color) {
+        int count = 0;
+        if (parts.contains(color)) {
+            count = Integer.parseInt(parts.substring((parts.indexOf(color) - 3), (parts.indexOf(color) - 1)).trim());
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
+        //vstup z úkolu
         String puzzleInput = """
                 Game 1: 12 red, 2 green, 5 blue; 9 red, 6 green, 4 blue; 10 red, 2 green, 5 blue; 8 blue, 9 red
                 Game 2: 3 green, 7 red; 3 blue, 5 red; 2 green, 1 blue, 6 red; 3 green, 2 red, 3 blue
@@ -126,55 +133,33 @@ public class SecondQuest {
                 Game 100: 5 green, 1 red; 1 red, 6 green; 6 blue, 1 red, 6 green; 6 blue, 1 green, 2 red; 8 blue, 1 red, 4 green; 8 green, 5 blue""";
 
 
-// Potřebujeme maximálně 12 červených kostek, 14 zelených kostek a 13 modrých kostek
+        // Potřebujeme maximálně 12 červených kostek, 14 zelených kostek a 13 modrých kostek
         String[] games = puzzleInput.split("\n");
         int posibleGames = 0;
         for (String game : games) {
+            // Zjištění čísla hry
             String[] splitGame = game.split(":");
             int numberOfGame = Integer.parseInt(splitGame[0].replace("Game ", ""));
-
+            //Rozdělení druhé části věty do sekcí
             String[] secondPartOfSentence = splitGame[1].split(";");
-
-            int red = 0;
-            int blue = 0;
-            int green = 0;
             int valid = 1;
-
-
+            //Procházení jednotlivých sekcí
             for (String parts : secondPartOfSentence) {
 
-                if (parts.contains("red")) {
-                    red = Integer.parseInt(parts.substring((parts.indexOf("red") - 3), (parts.indexOf("red") - 1)).trim());
-                }else{
-                    red=0;
-                }
-
-                if (parts.contains("blue")) {
-                    blue = Integer.parseInt(parts.substring((parts.indexOf("blue") - 3), (parts.indexOf("blue") - 1)).trim());
-                }else{
-                    blue=0;
-                }
-
-                if (parts.contains("green")) {
-                    green = Integer.parseInt(parts.substring((parts.indexOf("green") - 3), (parts.indexOf("green") - 1)).trim());
-                }else{
-                    green=0;
-                }
-
+                int red = getColorCount(parts, "red");
+                int blue = getColorCount(parts, "blue");
+                int green = getColorCount(parts, "green");
+                //Ověření podmínky úkolu
                 if (red > 12 || blue > 14 || green > 13) {
                     valid = 0;
+                    break;
                 }
-
             }
+            //sečtení ID jednotlivých her
             if (valid == 1) {
                 posibleGames += numberOfGame;
-                System.out.println(numberOfGame);
-                System.out.println(posibleGames);
             }
         }
-
-
         System.out.println(posibleGames);
-
     }
 }
