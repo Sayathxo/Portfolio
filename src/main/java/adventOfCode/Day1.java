@@ -12,7 +12,7 @@ In this example, the calibration values of these four lines are 12, 38, 15, and 
 Consider your entire calibration document. What is the sum of all the calibration values?
  */
 
-public class FirstQuest {
+public class Day1 {
     public static void main(String[] args) {
 
         String text = """
